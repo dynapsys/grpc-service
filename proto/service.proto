@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package example;
+
+service ExampleService {
+    // Proste zapytanie
+    rpc SayHello (HelloRequest) returns (HelloResponse) {}
+
+    // Stream odpowiedzi
+    rpc CountNumbers (CountRequest) returns (stream CountResponse) {}
+
+    // Stream zapytań
+    rpc ProcessItems (stream ProcessRequest) returns (ProcessSummary) {}
+
+    // Dwukierunkowy stream
+    rpc Chat (stream ChatMessage) returns (stream ChatMessage) {}
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string message = 1;
+    int64 timestamp = 2;
+}
+
+message CountRequest {
+    int32 start = 1;
+    int32 end = 2;
+}
+
+message CountResponse {
+    int32 number = 1;
+    bool is_prime = 2;
+}
+
+message ProcessRequest {
+    string item = 1;
+    string operation = 2;
+}
+
+message ProcessSummary {
+    int32 processed_count = 1;
+    repeated string results = 2;
+}
+
+message ChatMessage {
+    string username = 1;
+    string content = 2;
+    int64 timestamp = 3;
+}
